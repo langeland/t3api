@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="" basedir="." default="help" description="Generate the API for TYPO3">
+
+	<!--
+	<property file="LocalConfiguration.txt" />
+	-->
+
+	<property name="path.relHome" value="./" />
+	<resolvepath propertyName="path.home" file="${path.relHome}" />
+
+	<!-- PROPERTIES DECLARATION -->
+	<property name="path.bin" value="${path.home}/bin/" />
+	<property name="path.resources" value="${path.home}/Resources/" />
+	<property name="path.storage" value="${path.home}/Storage/" />
+
+	<!-- RELATIVE PROPERTIES DECLARATION -->
+	<property name="path.build" value="${path.storage}Build/" />
+	<property name="path.source" value="${path.storage}Source/" />
+	<property name="path.temporary" value="${path.storage}Temporary/" />
+	<property name="path.log" value="${path.storage}Logs/" />
+	<property name="path.build.archive" value="${path.build}Zip/" />
+	<property name="path.build.api" value="${path.build}Api/" />
+	<property name="path.build.docset" value="${path.build}Docset/" />
+
+	<tstamp prefix="tstamp" />
+	<property name="build.time" value="${tstamp.DSTAMP}${tstamp.TSTAMP}" />
+
+	<!-- RUNNING VARIABLES -->
+	<property name="verbose" value="false" />
+
+	<!-- FILE SET -->
+	<path id="phingClasses">
+		<pathelement dir="Classes/" />
+	</path>
+
+	<!-- TASK DEFINITION -->
+	<taskdef name="buildIndex" classname="BuildIndexTask" classpathref="phingClasses" />
+	<taskdef name="GitCmsVersions" classname="GitCmsVersionsTask" classpathref="phingClasses" />
+
+
+	<target name="help">
+		<echo>###################################################################################################</echo>
+		<echo># HELP</echo>
+		<echo>###################################################################################################</echo>
+		<echo>
+			./bin/phing/bin/phing [target]
+			Targets: [ stable | latest | dev | master | all ]
+		</echo>
+		<echo>###################################################################################################</echo>
+		<echo />
+		<echo />
+	</target>
+
+	<target name="build-stable" description="">
+		<phingcall target="build-cms">
+			<property name="build" value="stable" />
+		</phingcall>
+	</target>
+
+	<target name="build-latest" description="">
+		<phingcall target="build-cms">
+			<property name="build" value="latest" />
+		</phingcall>
+	</target>
+
+	<target name="build-dev" description="">
+		<phingcall target="build-cms">
+			<property name="build" value="dev" />
+		</phingcall>
+	</target>
+
+	<target name="build-master" description="">
+		<phingcall target="build-cms">
+			<property name="build" value="master" />
+		</phingcall>
+	</target>
+
+	<target name="build-all" description="">
+		<phingcall target="build-cms">
+			<property name="build" value="stable" />
+		</phingcall>
+		<phingcall target="build-cms">
+			<property name="build" value="latest" />
+		</phingcall>
+		<phingcall target="build-cms">
+			<property name="build" value="dev" />
+		</phingcall>
+		<phingcall target="build-cms">
+			<property name="build" value="master" />
+		</phingcall>
+	</target>
+
+	<target name="build-time" description="">
+		<echo>DSTAMP: ${buildTime.DSTAMP}</echo>
+		<echo>TSTAMP: ${buildTime.TSTAMP}</echo>
+		<echo>TODAY: ${buildTime.TODAY}</echo>
+
+	</target>
+
+	<target name="bootstrap" description="Bootstrap the system">
+		<echo>###################################################################################################</echo>
+		<echo># Boostrapping environment...</echo>
+		<echo>###################################################################################################</echo>
+		<mkdir dir="${path.storage}" />
+		<mkdir dir="${path.build}" />
+		<mkdir dir="${path.source}" />
+		<mkdir dir="${path.temporary}" />
+		<mkdir dir="${path.storage}Logs" />
+		<mkdir dir="${path.build.archive}" />
+		<mkdir dir="${path.build.api}" />
+		<mkdir dir="${path.build.docset}" />
+		<echo>Bootstrapping: Done</echo>
+	</target>
+
+	<target name="clean-all" description="Clean the system">
+		<echo>###################################################################################################</echo>
+		<echo># Cleaning the environment...</echo>
+		<echo>###################################################################################################</echo>
+		<delete dir="${path.storage}" includeemptydirs="true" verbose="false" failonerror="true" />
+		<echo>OK</echo>
+		<echo>###################################################################################################</echo>
+		<echo />
+		<echo />
+	</target>
+
+
+	<target name="build-cms" depends="bootstrap">
+		<echo>###################################################################################################</echo>
+		<echo># Building documentation for: "TYPO3 CMS"</echo>
+		<echo>###################################################################################################</echo>
+		<echo />
+		<property name="remoteRepository" value="git://git.typo3.org/Packages/TYPO3.CMS.git" />
+		<property name="localRepository" value="${path.source}TYPO3.CMS/" />
+
+		<available file="${localRepository}" type="dir" property="localRepository.isAvailable" />
+		<if>
+			<equals arg1="${localRepository.isAvailable}" arg2="true" />
+			<then>
+				<echo>Local repository exists: ${localRepository}</echo>
+				<gitcheckout
+						repository="${localRepository}"
+						branchname="master" />
+				<gitpull repository="${localRepository}" all="true" />
+			</then>
+			<else>
+				<echo>Local repository does not exists... Clonong..</echo>
+				<gitclone repository="${remoteRepository}" targetPath="${localRepository}" />
+			</else>
+		</if>
+
+		<echo>Finding versions in: ${localRepository}</echo>
+		<GitCmsVersions repository="${localRepository}" build="${build}">
+			<echo>###################################################################################################
+			</echo>
+			<phingcall target="runDocSet">
+				<property name="build.build" value="${build}" />
+				<property name="build.commit" value="${build.commit}" />
+				<property name="build.short" value="${build.short}" />
+				<property name="build.version" value="${build.version}" />
+				<property name="build.branch" value="${build.branch}" />
+				<property name="build.name" value="${build.name}" />
+			</phingcall>
+		</GitCmsVersions>
+		<echo>###################################################################################################</echo>
+
+		<GitCmsVersions repository="${localRepository}" build="${build}">
+			<echo>###################################################################################################
+			</echo>
+			<phingcall target="runApiGen">
+				<property name="build.build" value="${build}" />
+				<property name="build.commit" value="${build.commit}" />
+				<property name="build.short" value="${build.short}" />
+				<property name="build.version" value="${build.version}" />
+				<property name="build.branch" value="${build.branch}" />
+				<property name="build.name" value="${build.name}" />
+			</phingcall>
+		</GitCmsVersions>
+		<echo>###################################################################################################</echo>
+		<echo />
+		<echo />
+	</target>
+
+	<target name="runApiGen">
+		<echo>###################################################################################################</echo>
+		<echo># Building ApiGen documentation for: "TYPO3 CMS Version ${build.name}"</echo>
+		<echo>###################################################################################################</echo>
+		<echo />
+
+		<property name="build.path" value="${path.build.api}${build.build}/typo3_cms-${build.name}" />
+
+		<echo msg="Repository:  ${localRepository}" />
+		<echo msg="Commit-id:   ${build.commit}" />
+		<echo msg="Destination: ${build.path}" />
+
+		<available file="${build.path}/${build.commit}" type="file" property="build.existsis" />
+		<if>
+			<equals arg1="${build.existsis}" arg2="true" />
+			<then>
+				<echo>Skipping</echo>
+			</then>
+			<else>
+				<trycatch property="exeption">
+					<try>
+						<gitcheckout
+								repository="${localRepository}"
+								branchname="${build.commit}" />
+						<echo>## Starting ApiGen...</echo>
+						<apigen
+								executable="${path.bin}apigen/apigen.php"
+								source="${localRepository}"
+								destination="${build.path}/"
+								config="${path.resources}ApiGen/Configuration/ApiGen.neon"
+								title="TYPO3 CMS Version ${build.name} [${build.short}]"
+								googleanalytics="UA-46500539-1"
+								debug="false" />
+						<touch file="${build.path}/${build.commit}" />
+					</try>
+					<catch>
+						<echo>Build faild...</echo>
+						<echo>Enable the debug mode to see more details.</echo>
+					</catch>
+				</trycatch>
+			</else>
+		</if>
+
+		<echo />
+		<echo>###################################################################################################</echo>
+
+	</target>
+
+	<target name="runDocSet">
+		<echo>###################################################################################################</echo>
+		<echo># Building DocSet for: "TYPO3 CMS Version ${build.name}"</echo>
+		<echo>###################################################################################################</echo>
+		<echo />
+
+
+		<property name="build.path" value="${path.build.docset}${build.build}/typo3_cms-${build.name}.docset" />
+
+		<echo msg="Repository:  ${localRepository}" />
+		<echo msg="Commit-id:   ${build.commit}" />
+		<echo msg="Destination: ${build.path}" />
+
+
+		<available file="${build.path}/Contents/Resources/Documents/${build.commit}" type="file" property="build.existsis" />
+		<if>
+			<equals arg1="${build.existsis}" arg2="true" />
+			<then>
+				<echo>Skipping</echo>
+			</then>
+			<else>
+
+				<trycatch property="exeption">
+					<try>
+
+						<gitcheckout
+								repository="${localRepository}"
+								branchname="${build.commit}" />
+
+						<echo># 1. Create the Docset Folder</echo>
+						<mkdir dir="${build.path}/Contents/Resources/Documents/" />
+
+						<echo># 2. Build the HTML Documentation</echo>
+						<apigen
+								executable="${path.bin}apigen/apigen.php"
+								source="${localRepository}"
+								destination="${build.path}/Contents/Resources/Documents/"
+								config="${path.resources}ApiGen/Configuration/ApiGen.neon"
+								title="TYPO3 CMS Version ${build.name} [${build.short}]"
+								report="${path.log}report-${build.name}.xml"
+								debug="false" />
+
+						<echo># 3. Create the Info.plist File</echo>
+						<copy file="${path.resources}ApiGen/Configuration/Info.plist" tofile="${build.path}/Contents/Info.plist" overwrite="true">
+							<filterchain>
+								<replacetokens begintoken="###" endtoken="###">
+									<token key="CFBundleIdentifier" value="org.typo3.typo3_cms_${build.commit}" />
+									<token key="CFBundleName" value="TYPO3 CMS ${build.version}" />
+									<token key="DocSetPlatformFamily" value="t3" />
+								</replacetokens>
+							</filterchain>
+						</copy>
+
+						<echo># 4. Create the SQLite Index</echo>
+						<buildIndex
+								source="${build.path}/Contents/Resources/Documents/elementlist.js"
+								destination="${build.path}/Contents/Resources/docSet.dsidx" />
+
+						<echo># 5. Adding an Icon</echo>
+						<copy file="${path.home}/Resources/Images/typo3-logo-orange-32px-transparent.png" tofile="${build.path}/icon.png" overwrite="true" />
+
+						<echo># 6. Writing identification file</echo>
+						<touch file="${build.path}/Contents/Resources/Documents/${build.commit}" />
+
+						<echo># 7. Compressing docset</echo>
+						<mkdir dir="${path.build.archive}${build.build}" />
+						<delete file="${path.build.archive}${build.build}/${build.name}.tgz" />
+						<exec command="tar --exclude='.DS_Store' -cvzf ${path.build.archive}${build.build}/typo3_cms-${build.name}.tgz typo3_cms-${build.name}.docset" dir="${path.build.docset}${build.build}" />
+
+						<echo># 8. Create the Feed.xml File</echo>
+						<copy file="${path.resources}ApiGen/Configuration/FeedTemplate.xml" tofile="${path.build.archive}${build.build}/typo3_cms-${build.name}.xml" overwrite="true">
+							<filterchain>
+								<replacetokens begintoken="###" endtoken="###">
+									<token key="version" value="${build.name}" />
+									<token key="build" value="${build.commit}-${build.time}" />
+									<token key="baseUrl" value="http://api.discworld.dk/DocSet/" />
+									<token key="file" value="${build.build}/typo3_cms-${build.name}.tgz" />
+								</replacetokens>
+							</filterchain>
+						</copy>
+
+					</try>
+					<catch>
+						<echo>Build faild...</echo>
+						<echo>Enable the debug mode to see more details.</echo>
+					</catch>
+				</trycatch>
+			</else>
+		</if>
+
+
+		<echo />
+		<echo>###################################################################################################</echo>
+
+	</target>
+
+
+</project>

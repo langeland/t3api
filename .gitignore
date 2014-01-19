@@ -1,0 +1,13 @@
+/Storage/
+LocalConfiguration.txt
+
+Resources/ApiGen/StyleSets/BaseSet/.sass-cache
+
+/Storage/*
+/Storage/Build/*
+/Storage/Build/Api/*
+/Storage/Build/Docset/*
+/Storage/Build/Zip/*
+/Storage/Logs/*
+/Storage/Source/*
+/Storage/Temporary/*
