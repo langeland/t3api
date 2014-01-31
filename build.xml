@@ -102,6 +102,7 @@
 		<echo>###################################################################################################</echo>
 		<echo># Boostrapping environment...</echo>
 		<echo>###################################################################################################</echo>
+		<chmod file="${path.bin}apigen/apigen.php" mode="0755" />
 		<mkdir dir="${path.storage}" />
 		<mkdir dir="${path.build}" />
 		<mkdir dir="${path.source}" />

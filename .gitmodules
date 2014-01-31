@@ -1,0 +1,6 @@
+[submodule "bin/apigen"]
+	path = bin/apigen
+	url = git@github.com:apigen/apigen.git
+[submodule "bin/phing"]
+	path = bin/phing
+	url = git@github.com:phingofficial/phing.git
