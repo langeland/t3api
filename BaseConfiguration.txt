@@ -1,3 +1,4 @@
 
 config.build.skipVersions =
-config.apigen.template=
+
+config.build.docset.baseUrl = http://server.com/

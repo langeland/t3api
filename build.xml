@@ -326,7 +326,7 @@
 								<replacetokens begintoken="###" endtoken="###">
 									<token key="version" value="${build.name}" />
 									<token key="build" value="${build.commit}-${build.time}" />
-									<token key="baseUrl" value="http://api.discworld.dk/DocSet/" />
+									<token key="baseUrl" value="${config.build.docset.baseUrl}" />
 									<token key="file" value="${build.build}/typo3_cms-${build.name}.tgz" />
 								</replacetokens>
 							</filterchain>
