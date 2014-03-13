@@ -2,9 +2,7 @@
 
 <project name="" basedir="." default="help" description="Generate the API for TYPO3">
 
-	<!--
-	<property file="LocalConfiguration.txt" />
-	-->
+	<property file="BaseConfiguration.txt" />
 
 	<property name="path.relHome" value="./" />
 	<resolvepath propertyName="path.home" file="${path.relHome}" />
@@ -34,7 +32,10 @@
 		<pathelement dir="Classes/" />
 	</path>
 
+	<property file="LocalConfiguration.txt" override="true" />
+
 	<!-- TASK DEFINITION -->
+	<taskdef name="inList" classname="InListTask" classpathref="phingClasses" />
 	<taskdef name="buildIndex" classname="BuildIndexTask" classpathref="phingClasses" />
 	<taskdef name="GitCmsVersions" classname="GitCmsVersionsTask" classpathref="phingClasses" />
 
@@ -95,7 +96,6 @@
 		<echo>DSTAMP: ${buildTime.DSTAMP}</echo>
 		<echo>TSTAMP: ${buildTime.TSTAMP}</echo>
 		<echo>TODAY: ${buildTime.TODAY}</echo>
-
 	</target>
 
 	<target name="bootstrap" description="Bootstrap the system">
@@ -195,11 +195,21 @@
 		<echo msg="Destination: ${build.path}" />
 
 		<available file="${build.path}/${build.commit}" type="file" property="build.existsis" />
+		<inList needle="${build.name}" haystack="${config.build.skipVersions}" property="build.skipVersion" />
+
 		<if>
 			<equals arg1="${build.existsis}" arg2="true" />
 			<then>
-				<echo>Skipping</echo>
+				<echo>Build existes.. skipping</echo>
 			</then>
+
+			<elseif>
+				<equals arg1="${build.skipVersion}" arg2="true" />
+				<then>
+					<echo>Build in exclude list.. skipping</echo>
+				</then>
+			</elseif>
+
 			<else>
 				<trycatch property="exeption">
 					<try>
@@ -245,13 +255,24 @@
 
 
 		<available file="${build.path}/Contents/Resources/Documents/${build.commit}" type="file" property="build.existsis" />
+		<inList needle="${build.name}" haystack="${config.build.skipVersions}" property="build.skipVersion" />
+
+		<echo msg="Skip this version: ${build.skipVersion}" />
+
 		<if>
 			<equals arg1="${build.existsis}" arg2="true" />
 			<then>
-				<echo>Skipping</echo>
+				<echo>Build existes.. skipping</echo>
 			</then>
-			<else>
 
+			<elseif>
+				<equals arg1="${build.skipVersion}" arg2="true" />
+				<then>
+					<echo>Build in exclude list.. skipping</echo>
+				</then>
+			</elseif>
+
+			<else>
 				<trycatch property="exeption">
 					<try>
 
@@ -296,7 +317,7 @@
 
 						<echo># 7. Compressing docset</echo>
 						<mkdir dir="${path.build.archive}${build.build}" />
-						<delete file="${path.build.archive}${build.build}/${build.name}.tgz" />
+						<delete file="${path.build.archive}${build.build}/typo3_cms-${build.name}.tgz" />
 						<exec command="tar --exclude='.DS_Store' -cvzf ${path.build.archive}${build.build}/typo3_cms-${build.name}.tgz typo3_cms-${build.name}.docset" dir="${path.build.docset}${build.build}" />
 
 						<echo># 8. Create the Feed.xml File</echo>
