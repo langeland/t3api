@@ -46,38 +46,38 @@
 		<echo>###################################################################################################</echo>
 		<echo>
 			./bin/phing/bin/phing [target]
-			Targets: [ stable | latest | dev | master | all ]
+			Targets: [ stable | latest | dev | master | all | clean ]
 		</echo>
 		<echo>###################################################################################################</echo>
 		<echo />
 		<echo />
 	</target>
 
-	<target name="build-stable" description="">
+	<target name="stable" description="">
 		<phingcall target="build-cms">
 			<property name="build" value="stable" />
 		</phingcall>
 	</target>
 
-	<target name="build-latest" description="">
+	<target name="latest" description="">
 		<phingcall target="build-cms">
 			<property name="build" value="latest" />
 		</phingcall>
 	</target>
 
-	<target name="build-dev" description="">
+	<target name="dev" description="">
 		<phingcall target="build-cms">
 			<property name="build" value="dev" />
 		</phingcall>
 	</target>
 
-	<target name="build-master" description="">
+	<target name="master" description="">
 		<phingcall target="build-cms">
 			<property name="build" value="master" />
 		</phingcall>
 	</target>
 
-	<target name="build-all" description="">
+	<target name="all" description="">
 		<phingcall target="build-cms">
 			<property name="build" value="stable" />
 		</phingcall>
@@ -114,7 +114,7 @@
 		<echo>Bootstrapping: Done</echo>
 	</target>
 
-	<target name="clean-all" description="Clean the system">
+	<target name="clean" description="Clean the system">
 		<echo>###################################################################################################</echo>
 		<echo># Cleaning the environment...</echo>
 		<echo>###################################################################################################</echo>
