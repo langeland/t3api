@@ -25,9 +25,9 @@ $(function () {
 	if (window.dash) {
 		$('body').addClass('dash');
 		isDash = true;
-		$('.brand').append(' - isDash is true');
+		// $('.brand').append(' - isDash is true');
 	} else {
-		$('.brand').append(' - isDash is false');
+		// $('.brand').append(' - isDash is false');
 	}
 
 	// Menu
