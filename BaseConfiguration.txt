@@ -1,4 +1,7 @@
 
 config.build.skipVersions =
 
+config.build.html.apigen.templateConfig = Resources/ApiGen/StyleSets/DocSet/config.neon
+config.build.docset.apigen.templateConfig = Resources/ApiGen/StyleSets/DocSet/config.neon
+
 config.build.docset.baseUrl = http://server.com/

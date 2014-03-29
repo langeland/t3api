@@ -6,50 +6,50 @@ resources:
 
 templates:
 	common:
-		overview.latte: index.html
-		combined.js.latte: resources/combined.js
-		elementlist.js.latte: elementlist.js
-		404.latte: 404.html
+		Latte/overview.latte: index.html
+		Latte/combined.js.latte: combined.js
+		Latte/elementlist.js.latte: elementlist.js
+		Latte/404.latte: 404.html
 
 	main:
 		package:
 			filename: package-%s.html
-			template: package.latte
+			template: Latte/package.latte
 		namespace:
 			filename: namespace-%s.html
-			template: namespace.latte
+			template: Latte/namespace.latte
 		class:
 			filename: class-%s.html
-			template: class.latte
+			template: Latte/class.latte
 		constant:
 			filename: constant-%s.html
-			template: constant.latte
+			template: Latte/constant.latte
 		function:
 			filename: function-%s.html
-			template: function.latte
+			template: Latte/function.latte
 		source:
 			filename: source-%s.html
-			template: source.latte
+			template: Latte/source.latte
 		tree:
 			filename: tree.html
-			template: tree.latte
+			template: Latte/tree.latte
 		deprecated:
 			filename: deprecated.html
-			template: deprecated.latte
+			template: Latte/deprecated.latte
 		todo:
 			filename: todo.html
-			template: todo.latte
+			template: Latte/todo.latte
 
 	optional:
 		sitemap:
 			filename: sitemap.xml
-			template: sitemap.xml.latte
+			template: Latte/sitemap.xml.latte
 		opensearch:
 			filename: opensearch.xml
-			template: opensearch.xml.latte
+			template: Latte/opensearch.xml.latte
 		robots:
 			filename: robots.txt
-			template: robots.txt.latte
+			template: Latte/robots.txt.latte
 
 options:
 	elementDetailsCollapsed: Yes

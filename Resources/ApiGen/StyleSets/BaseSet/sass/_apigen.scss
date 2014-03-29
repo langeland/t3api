@@ -12,15 +12,19 @@
 
 body {
 	padding: 40px 0 0 0;
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
 }
 
 h1 {
-	font-size: 2em;
+	font-size: 28px;
+	font-weight: normal;
 	margin: 0.67em 0;
 }
 
 h2 {
-	font-size: 1.5em;
+	font-size: 24px;
+	font-weight: normal;
+	color: #3C4C6C;
 	margin: 0.83em 0;
 }
 
@@ -144,7 +148,7 @@ pre code {
 	display: block;
 	width: 12px;
 	height: 12px;
-	background: url('collapsed.png') transparent 0 0 no-repeat;
+	background: url('../Images/collapsed.png') transparent 0 0 no-repeat;
 }
 
 #menu #groups span:hover {
@@ -232,7 +236,7 @@ pre code {
 }
 
 #rightInner {
-	max-width: 1000px;
+	max-width: 99%;
 	min-width: 350px;
 }
 
@@ -285,7 +289,7 @@ dl.tree dd {
 }
 
 h2.switchable {
-	background: transparent url('sort.png') no-repeat center right;
+	background: transparent url('../Images/sort.png') no-repeat center right;
 	cursor: pointer;
 }
 
@@ -380,7 +384,7 @@ td.name, td.attributes {
 	height: 100%;
 	width: 5px;
 	left: 270px;
-	background: #0088cc url('resize.png') left center no-repeat;
+	background: #0088cc url('../Images/resize.png') left center no-repeat;
 	cursor: e-resize;
 }
 
@@ -401,7 +405,7 @@ td.name, td.attributes {
 /* Tree */
 div.tree ul {
 	list-style: none;
-	background: url('tree-vertical.png') left repeat-y;
+	background: url('../Images/tree-vertical.png') left repeat-y;
 	padding: 0;
 	margin-left: 20px;
 }
@@ -416,15 +420,15 @@ div.tree div {
 }
 
 div.tree div.notlast {
-	background: url('tree-hasnext.png') left 10px no-repeat;
+	background: url('../Images/tree-hasnext.png') left 10px no-repeat;
 }
 
 div.tree div.last {
-	background: url('tree-last.png') left -240px no-repeat;
+	background: url('../Images/tree-last.png') left -240px no-repeat;
 }
 
 div.tree li.last {
-	background: url('tree-cleaner.png') left center repeat-y;
+	background: url('../Images/tree-cleaner.png') left center repeat-y;
 }
 
 div.tree span.padding {

@@ -20,14 +20,20 @@ the file LICENSE.md that was distributed with this source code.
 
 	<title>{include #title}{if 'overview' !== $active && $config->title} | {$config->title}{/if}</title>
 
-	{var combinedJs = 'resources/combined.js'}
-	<script type="text/javascript" src="{$combinedJs|staticFile}"></script>
-	{var elementListJs = 'elementlist.js'}
-	<script type="text/javascript" src="{$elementListJs|staticFile}"></script>
-	{var bootstrapCss = 'resources/bootstrap.min.css'}
-	<link rel="stylesheet" type="text/css" media="all" href="{$bootstrapCss|staticFile}">
-	{var styleCss = 'resources/style.css'}
-	<link rel="stylesheet" type="text/css" media="all" href="{$styleCss|staticFile}">
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/modernizr-2.7.1.js"></script>
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/jquery-2.1.0.min.js"></script>
+
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/jquery.cookie.js"></script>
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/jquery.sprintf.js"></script>
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="resources/JavaScripts/Vendor/jquery.sortElements.js"></script>
+	<script type="text/javascript" src="combined.js"></script>
+	<script type="text/javascript" src="elementlist.js"></script>
+	<script type="text/javascript" src="resources/JavaScripts/main.js"></script>
+
+	<link rel="stylesheet" type="text/css" media="all" href="resources/StyleSheets/Screen.css">
+	<link rel="stylesheet" type="text/css" media="print" href="resources/StyleSheets/Print.css">
+
 	<link n:if="$config->googleCseId" rel="search" type="application/opensearchdescription+xml" title="{$config->title}" href="{$config->baseUrl}/opensearch.xml">
 
 	<script n:if="$config->googleAnalytics" type="text/javascript">

@@ -26,7 +26,7 @@ the file LICENSE.md that was distributed with this source code.
 
 	<dl class="tree well" n:if="$class->parentClass || $class->ownInterfaces || $class->ownTraits">
 		<dd n:foreach="$tree as $item" style="padding-left:{($iterator->counter - 1) * 30}px">
-			<img src="resources/inherit.png" alt="Extended by" n:if="$iterator->counter > 1">
+			<img src="resources/Images/inherit.png" alt="Extended by" n:if="$iterator->counter > 1">
 			{if $item->documented}
 			<a href="{$item|classUrl}" n:tag-if="!$iterator->last">{last}<b>{/last}<span n:class="$item->deprecated ? deprecated, !$item->valid ? invalid">{$item->name}</span>{last}</b>{/last}</a>
 			{else}{$item->name}{/if}

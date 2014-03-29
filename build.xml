@@ -151,6 +151,7 @@
 		</if>
 
 		<echo>Finding versions in: ${localRepository}</echo>
+
 		<GitCmsVersions repository="${localRepository}" build="${build}">
 			<echo>###################################################################################################
 			</echo>
@@ -222,6 +223,7 @@
 								source="${localRepository}"
 								destination="${build.path}/"
 								config="${path.resources}ApiGen/Configuration/ApiGen.neon"
+								templateconfig="${config.build.html.apigen.templateConfig}"
 								title="TYPO3 CMS Version ${build.name} [${build.short}]"
 								googleanalytics="UA-46500539-1"
 								debug="false" />
@@ -289,6 +291,7 @@
 								source="${localRepository}"
 								destination="${build.path}/Contents/Resources/Documents/"
 								config="${path.resources}ApiGen/Configuration/ApiGen.neon"
+								templateconfig="${config.build.docset.apigen.templateConfig}"
 								title="TYPO3 CMS Version ${build.name} [${build.short}]"
 								report="${path.log}report-${build.name}.xml"
 								debug="false" />

@@ -1,8 +1,61 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+@import "bootstrap-variables"; // Modify this for custom colors, font-sizes, etc
 
-@import "reset";
-@import "typography";
 
+// Core variables and mixins
+//@import "Bootstrap/variables"; // Modify this for custom colors, font-sizes, etc
+@import "Bootstrap/mixins";
+
+// CSS Reset
+@import "Bootstrap/reset";
+
+// Grid system and page structure
+@import "Bootstrap/scaffolding";
+@import "Bootstrap/grid";
+@import "Bootstrap/layouts";
+
+// Base CSS
+@import "Bootstrap/type";
+@import "Bootstrap/code";
+@import "Bootstrap/forms";
+@import "Bootstrap/tables";
+
+// Components: common
+@import "Bootstrap/sprites";
+@import "Bootstrap/dropdowns";
+@import "Bootstrap/wells";
+@import "Bootstrap/component-animations";
+@import "Bootstrap/close";
+
+// Components: Buttons & Alerts
+@import "Bootstrap/buttons";
+@import "Bootstrap/button-groups";
+@import "Bootstrap/alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+
+// Components: Nav
+@import "Bootstrap/navs";
+@import "Bootstrap/navbar";
+@import "Bootstrap/breadcrumbs";
+@import "Bootstrap/pagination";
+@import "Bootstrap/pager";
+
+// Components: Popovers
+@import "Bootstrap/modals";
+@import "Bootstrap/tooltip";
+@import "Bootstrap/popovers";
+
+// Components: Misc
+@import "Bootstrap/thumbnails";
+@import "Bootstrap/media";
+@import "Bootstrap/labels-badges";
+@import "Bootstrap/progress-bars";
+@import "Bootstrap/accordion";
+@import "Bootstrap/carousel";
+@import "Bootstrap/hero-unit";
+
+// Utility classes
+@import "Bootstrap/utilities"; // Has to be last to override when necessary
+
+
+// ApiGen and Dash
+@import "apigen";
+@import "dash";
