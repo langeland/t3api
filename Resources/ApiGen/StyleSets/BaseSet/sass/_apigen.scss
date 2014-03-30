@@ -78,7 +78,7 @@ pre code {
 }
 
 .invalid {
-	color: #dd1144;
+	color: $errorText;
 }
 
 .hidden {
@@ -127,7 +127,7 @@ pre code {
 }
 
 #menu a:hover {
-	background-color: #0088cc;
+	background-color: $linkColor;
 	color: #ffffff !important;
 }
 
@@ -137,7 +137,7 @@ pre code {
 }
 
 #menu .active > a.invalid {
-	color: #dd1144;
+	color: $errorText;
 }
 
 #menu #groups span {
@@ -216,7 +216,7 @@ pre code {
 }
 
 .ac_over {
-	background-color: #0088cc;
+	background-color: $linkColor;
 	color: #ffffff;
 }
 
@@ -360,7 +360,7 @@ td.name, td.attributes {
 }
 
 .attributes code, .name code, dd code {
-	color: #468847;
+	color: $successText;
 }
 
 .anchor {
@@ -370,7 +370,7 @@ td.name, td.attributes {
 	line-height: 1;
 	font-size: 85%;
 	margin: 0;
-	color: #0088cc !important;
+	color: $linkColor !important;
 }
 
 .list {
@@ -384,7 +384,7 @@ td.name, td.attributes {
 	height: 100%;
 	width: 5px;
 	left: 270px;
-	background: #0088cc url('../Images/resize.png') left center no-repeat;
+	background: $linkColor url('../Images/resize.png') left center no-repeat;
 	cursor: e-resize;
 }
 
@@ -442,7 +442,7 @@ div.tree span.padding {
 }
 
 .php-keyword1 {
-	color: #468847;
+	color: $successText;
 	font-weight: bold;
 }
 
@@ -456,11 +456,11 @@ div.tree span.padding {
 }
 
 .php-num {
-	color: #006dcc;
+	color: $blueDark;
 }
 
 .php-quote {
-	color: #006dcc;
+	color: $blueDark;
 }
 
 .php-comment {
@@ -468,7 +468,7 @@ div.tree span.padding {
 }
 
 .xlang {
-	color: #468847;
+	color: $successText;
 	font-weight: bold;
 }
 

@@ -6887,7 +6887,7 @@ pre code {
 
 /* line 80, ../../Sass/_apigen.scss */
 .invalid {
-  color: #dd1144;
+  color: #b94a48;
 }
 
 /* line 84, ../../Sass/_apigen.scss */
@@ -6957,7 +6957,7 @@ pre code {
 
 /* line 139, ../../Sass/_apigen.scss */
 #menu .active > a.invalid {
-  color: #dd1144;
+  color: #b94a48;
 }
 
 /* line 143, ../../Sass/_apigen.scss */
@@ -7334,12 +7334,12 @@ div.tree span.padding {
 
 /* line 458, ../../Sass/_apigen.scss */
 .php-num {
-  color: #006dcc;
+  color: #0064cd;
 }
 
 /* line 462, ../../Sass/_apigen.scss */
 .php-quote {
-  color: #006dcc;
+  color: #0064cd;
 }
 
 /* line 466, ../../Sass/_apigen.scss */
