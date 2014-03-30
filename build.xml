@@ -92,12 +92,6 @@
 		</phingcall>
 	</target>
 
-	<target name="build-time" description="">
-		<echo>DSTAMP: ${buildTime.DSTAMP}</echo>
-		<echo>TSTAMP: ${buildTime.TSTAMP}</echo>
-		<echo>TODAY: ${buildTime.TODAY}</echo>
-	</target>
-
 	<target name="bootstrap" description="Bootstrap the system">
 		<echo>###################################################################################################</echo>
 		<echo># Boostrapping environment...</echo>
